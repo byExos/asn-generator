@@ -1,5 +1,7 @@
 # ASN Label Generator
 
+[![Open on Netlify](assets/open_netlify_btn.svg)](https://asn-generator.netlify.app)
+
 A static web application for generating printable A4 PDF sheets with configurable ASN (Archive Serial Number) sticker labels. Each label contains a QR code and customizable text. All PDF generation happens in your browser - no server required!
 
 ![app preview](assets/preview.png)
