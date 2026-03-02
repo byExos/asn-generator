@@ -2,6 +2,9 @@
 
 A static web application for generating printable A4 PDF sheets with configurable ASN (Archive Serial Number) sticker labels. Each label contains a QR code and customizable text. All PDF generation happens in your browser - no server required!
 
+![app preview](assets/preview.png)
+See example output [PDF](assets/asn_labels_example.pdf)
+
 ## Features
 
 - 🎨 **User-friendly web interface** - Configure everything through a clean UI
