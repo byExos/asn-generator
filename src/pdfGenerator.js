@@ -105,8 +105,8 @@ const calculateLabelLayout = ({ margins, rows, cols, hSpacing, vSpacing }) => {
   const vSpacePt = mmToPt(vSpacing);
 
   // Calculate usable area for labels
-  const usableWidth = A4_WIDTH_PT - marginsPt.left - marginsPt.right - (cols - 1) * hSpacePt;
-  const usableHeight = A4_HEIGHT_PT - marginsPt.top - marginsPt.bottom - (rows - 1) * vSpacePt;
+  const usableWidth = A4_WIDTH_PT - marginsPt.left - marginsPt.right - (cols - 1) * vSpacePt;
+  const usableHeight = A4_HEIGHT_PT - marginsPt.top - marginsPt.bottom - (rows - 1) * hSpacePt;
 
   // Calculate individual label dimensions
   const labelWidth = usableWidth / cols;
@@ -438,8 +438,8 @@ async function buildPdf(config, { preview = false } = {}) {
         if (labelsGenerated >= effectiveQty) break;
 
         // Calculate label position
-        const x = layout.margins.left + col * (layout.labelWidth + layout.hSpacing);
-        const y = layout.margins.top + row * (layout.labelHeight + layout.vSpacing);
+        const x = layout.margins.left + col * (layout.labelWidth + layout.vSpacing);
+        const y = layout.margins.top + row * (layout.labelHeight + layout.hSpacing);
 
         // Render the label
         await renderLabel(pdf, {
