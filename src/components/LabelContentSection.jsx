@@ -7,6 +7,8 @@ export default function LabelContentSection({ config, onChange, isQtyManual }) {
     });
   };
 
+  const isLR = config.textPosition === "left" || config.textPosition === "right";
+
   return (
     <section className="section">
       <h2>Label Content</h2>
@@ -75,23 +77,31 @@ export default function LabelContentSection({ config, onChange, isQtyManual }) {
           </button>
           <div className="position-sides">
             <button
-              className={`position-btn left ${config.textPosition === "left" ? "active" : ""}`}
+              className={`position-btn left ${config.textPosition === "left" ? "active" : ""} ${!config.labelRotated ? "horizontal" : ""}`}
               onClick={() => handlePositionClick("left")}
               title="Text left of QR"
             >
-              <span className="rotated-text">
-                {asnTemplateValue(config.textTemplate, config.startAsn)}
-              </span>
+              {config.labelRotated ? (
+                <span className="rotated-text">
+                  {asnTemplateValue(config.textTemplate, config.startAsn)}
+                </span>
+              ) : (
+                asnTemplateValue(config.textTemplate, config.startAsn)
+              )}
             </button>
             <div className="qr-preview">QR</div>
             <button
-              className={`position-btn right ${config.textPosition === "right" ? "active" : ""}`}
+              className={`position-btn right ${config.textPosition === "right" ? "active" : ""} ${!config.labelRotated ? "horizontal" : ""}`}
               onClick={() => handlePositionClick("right")}
               title="Text right of QR"
             >
-              <span className="rotated-text">
-                {asnTemplateValue(config.textTemplate, config.startAsn)}
-              </span>
+              {config.labelRotated ? (
+                <span className="rotated-text">
+                  {asnTemplateValue(config.textTemplate, config.startAsn)}
+                </span>
+              ) : (
+                asnTemplateValue(config.textTemplate, config.startAsn)
+              )}
             </button>
           </div>
           <button
@@ -103,6 +113,19 @@ export default function LabelContentSection({ config, onChange, isQtyManual }) {
           </button>
         </div>
       </div>
+      {isLR && (
+        <div className="form-row full-width">
+          <label className="checkbox-label">
+            <input
+              type="checkbox"
+              name="labelRotated"
+              checked={config.labelRotated}
+              onChange={onChange}
+            />
+            Rotate label text
+          </label>
+        </div>
+      )}
     </section>
   );
 }

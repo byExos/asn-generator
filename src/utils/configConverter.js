@@ -21,4 +21,5 @@ export const toPdfConfig = (currentConfig) => ({
   showGrid: currentConfig.showGrid,
   filename: currentConfig.filename,
   textPosition: currentConfig.textPosition,
+  labelRotated: currentConfig.labelRotated,
 });

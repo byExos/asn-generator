@@ -300,6 +300,56 @@ const renderLabelRightText = (pdf, params) => {
 };
 
 /**
+ * Renders label content with horizontal text on the left, QR code on the right.
+ * Text is displayed horizontally (not rotated), centered vertically next to the QR code.
+ * @param {jsPDF} pdf - PDF document instance
+ * @param {Object} params - Positioning parameters
+ */
+const renderLabelLeftTextHorizontal = (pdf, params) => {
+  const { x, y, labelWidth, labelHeight, qrDataUrl, qrSizePt, text, textDims } = params;
+  const textGapPt = mmToPt(TEXT_GAP_MM);
+
+  // Horizontal text occupies its natural width
+  const totalWidth = textDims.width + textGapPt + qrSizePt;
+  const centerXOffset = Math.max(0, (labelWidth - totalWidth) / 2);
+
+  // Position text on left, vertically centered
+  const textX = x + centerXOffset;
+  const textY = y + (labelHeight + textDims.height) / 2;
+  pdf.text(text, textX, textY);
+
+  // Position QR code on right
+  const qrX = textX + textDims.width + textGapPt;
+  const qrY = y + (labelHeight - qrSizePt) / 2;
+  pdf.addImage(qrDataUrl, 'PNG', qrX, qrY, qrSizePt, qrSizePt);
+};
+
+/**
+ * Renders label content with QR code on the left, horizontal text on the right.
+ * Text is displayed horizontally (not rotated), centered vertically next to the QR code.
+ * @param {jsPDF} pdf - PDF document instance
+ * @param {Object} params - Positioning parameters
+ */
+const renderLabelRightTextHorizontal = (pdf, params) => {
+  const { x, y, labelWidth, labelHeight, qrDataUrl, qrSizePt, text, textDims } = params;
+  const textGapPt = mmToPt(TEXT_GAP_MM);
+
+  // Calculate horizontal centering for QR + text layout
+  const totalWidth = qrSizePt + textGapPt + textDims.width;
+  const centerXOffset = Math.max(0, (labelWidth - totalWidth) / 2);
+
+  // Position QR code on left
+  const qrX = x + centerXOffset;
+  const qrY = y + (labelHeight - qrSizePt) / 2;
+  pdf.addImage(qrDataUrl, 'PNG', qrX, qrY, qrSizePt, qrSizePt);
+
+  // Position horizontal text on right, vertically centered
+  const textX = qrX + qrSizePt + textGapPt;
+  const textY = y + (labelHeight + textDims.height) / 2;
+  pdf.text(text, textX, textY);
+};
+
+/**
  * Renders a single label with QR code and text.
  * @param {jsPDF} pdf - PDF document instance
  * @param {Object} params - Label rendering parameters
@@ -317,6 +367,7 @@ const renderLabel = async (pdf, params) => {
     qrPixelWidth,
     qrSizeMm,
     textPosition,
+    labelRotated,
     showGrid,
   } = params;
 
@@ -355,10 +406,18 @@ const renderLabel = async (pdf, params) => {
       renderLabelTopText(pdf, renderParams);
       break;
     case 'left':
-      renderLabelLeftText(pdf, renderParams);
+      if (labelRotated) {
+        renderLabelLeftText(pdf, renderParams);
+      } else {
+        renderLabelLeftTextHorizontal(pdf, renderParams);
+      }
       break;
     case 'right':
-      renderLabelRightText(pdf, renderParams);
+      if (labelRotated) {
+        renderLabelRightText(pdf, renderParams);
+      } else {
+        renderLabelRightTextHorizontal(pdf, renderParams);
+      }
       break;
     case 'bottom':
     default:
@@ -394,6 +453,7 @@ async function buildPdf(config, { preview = false } = {}) {
     fontSize = 9,
     showGrid = false,
     textPosition = 'bottom',
+    labelRotated = true,
   } = config;
 
   // Calculate effective quantities and settings
@@ -454,6 +514,7 @@ async function buildPdf(config, { preview = false } = {}) {
           qrPixelWidth,
           qrSizeMm,
           textPosition,
+          labelRotated,
           showGrid,
         });
 

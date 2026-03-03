@@ -18,6 +18,7 @@ const createDefaultConfig = () => ({
   showGrid: false,
   filename: "asn_labels.pdf",
   textPosition: "right",
+  labelRotated: false,
 });
 
 const useConfigState = () => {
