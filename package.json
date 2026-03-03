@@ -1,7 +1,14 @@
 {
 	"name": "asn-label-generator",
-	"private": true,
-	"version": "1.0.0",
+	"private": false,
+	"version": "1.0.2",
+	"author": "Johannes Mokosch",
+	"license": "GNU GPLv3",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/byExos/asn-generator"
+	},
+	"homepage": "https://asn-generator.mokosch.it",
 	"type": "module",
 	"scripts": {
 		"dev": "vite",

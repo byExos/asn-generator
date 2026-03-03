@@ -78,7 +78,18 @@ function App() {
     <div className="app">
       <header className="header">
         <h1>ASN Label Generator</h1>
-        <p>Generate printable A4 PDF sheets with QR code labels</p>
+        <p>
+          Generate printable A4 PDF sheets with QR-coded ASN sticker labels for{" "}
+          <a
+            href="https://docs.paperless-ngx.com/advanced_usage/#archive-serial-number-assignment"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="header-link"
+          >
+            paperless-ngx
+          </a>
+          . Compatible with Avery, Herma, Hama, CS Label and nearly any other label format.
+        </p>
       </header>
       <div className="container">
         <div className="form-grid">
@@ -102,6 +113,27 @@ function App() {
 
         <InfoPanel rows={config.rows} cols={config.cols} qty={config.qty} />
       </div>
+
+      <footer className="site-footer">
+        <p>
+          Open source &amp; free to use &mdash;{" "}
+          <a
+            href="https://github.com/byExos/asn-generator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            ⭐ Contribute on GitHub
+          </a>
+          {" "}·{" "}
+          <a
+            href="https://docs.paperless-ngx.com/advanced_usage/#archive-serial-number-assignment"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            paperless-ngx ASN docs
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

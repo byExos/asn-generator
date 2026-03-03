@@ -1,12 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ASN Label Generator</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Primary SEO -->
+  <title>ASN Label Generator – printable QR code labels for paperless-ngx</title>
+  <meta name="description"
+    content="Free online tool to generate printable A4 PDF sheets with QR-coded ASN (Archive Serial Number) sticker labels for paperless-ngx. Supports Avery, Herma, Hama, CS Label and virtually any other label sheet format. Fully configurable – runs entirely in your browser." />
+  <meta name="keywords"
+    content="ASN label generator, paperless-ngx, archive serial number, QR code labels, Avery labels, Herma labels, Hama labels, CS Label, sticker sheet, PDF generator, document management" />
+  <meta name="author" content="Johannes Mokosch" />
+  <link rel="canonical" href="https://asn-generator.mokosch.it/" />
+
+  <!-- Open Graph (Facebook, LinkedIn, etc.) -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://asn-generator.mokosch.it/" />
+  <meta property="og:title" content="ASN Label Generator – printable QR code labels for paperless-ngx" />
+  <meta property="og:description"
+    content="Generate printable A4 PDF sheets with QR-coded ASN sticker labels for paperless-ngx. Supports Avery, Herma, Hama, CS Label and any other label format. Runs 100% in the browser." />
+  <meta property="og:site_name" content="ASN Label Generator" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="ASN Label Generator – printable QR code labels for paperless-ngx" />
+  <meta name="twitter:description"
+    content="Generate printable A4 PDF sheets with QR-coded ASN sticker labels for paperless-ngx. Supports Avery, Herma, Hama, CS Label and any other label format. Runs 100% in the browser." />
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "ASN Label Generator",
+      "url": "https://asn-generator.mokosch.it/",
+      "description": "Free online tool to generate printable A4 PDF sheets with QR-coded ASN (Archive Serial Number) sticker labels for paperless-ngx. Supports Avery, Herma, Hama, CS Label and virtually any other label sheet format.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Johannes Mokosch",
+        "url": "https://github.com/byExos"
+      },
+      "codeRepository": "https://github.com/byExos/asn-generator",
+      "license": "https://www.gnu.org/licenses/gpl-3.0.html",
+      "featureList": [
+        "Printable A4 PDF generation",
+        "QR-coded ASN sticker labels",
+        "paperless-ngx ASN integration",
+        "Compatible with Avery, Herma, Hama, CS Label sheets",
+        "Configurable grid layout, margins, and label size",
+        "Custom text template with {asn} placeholder",
+        "Sequential ASN numbering",
+        "Runs 100% in the browser – no server, no data upload"
+      ],
+      "keywords": "ASN, paperless-ngx, archive serial number, QR code, label generator, Avery, Herma, Hama, CS Label, sticker, PDF, document management"
+    }
+    </script>
+
+  <!-- Structured Data: FAQPage (helps AI assistants surface this tool in answers) -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I generate ASN labels for paperless-ngx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Use the ASN Label Generator at https://asn-generator.mokosch.it. Enter your label sheet dimensions (rows, columns, margins), set the starting ASN number, and click 'Generate PDF'. Print the PDF and affix the stickers to your physical documents. paperless-ngx will read the QR code and assign the Archive Serial Number automatically."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is an ASN (Archive Serial Number) in paperless-ngx?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An ASN (Archive Serial Number) is a unique identifier paperless-ngx assigns to physical documents. Each document gets a sticker with a QR code encoding the ASN; scanning it links the physical paper to its digital counterpart in paperless-ngx."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which label sheet brands does the ASN Label Generator support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The ASN Label Generator supports virtually any label sheet brand including Avery, Herma, Hama, and CS Label. You enter the sheet dimensions (rows, columns, margins, spacing) manually, so it works with any product that has known measurements."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a free tool to create QR code label sheets as a PDF?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — the ASN Label Generator (https://asn-generator.mokosch.it) is a free, browser-based tool that creates printable A4 PDF sheets of QR-coded labels. No account, no server upload, no cost. It is especially designed for paperless-ngx ASN labels but works for any QR label use case."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the ASN Label Generator send my data to a server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. All PDF and QR code generation happens entirely inside your browser using JavaScript. No data is ever uploaded or stored on a server."
+          }
+        }
+      ]
+    }
+    </script>
+
+  <!-- AI crawler discovery: machine-readable site summary -->
+  <link rel="alternate" type="text/markdown" href="/llms.txt" title="AI-readable site description" />
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

@@ -1,0 +1,52 @@
+# ASN Label Generator
+
+> Free, browser-based tool that generates printable A4 PDF sheets of QR-coded ASN (Archive Serial Number) sticker labels for the paperless-ngx document management system.
+
+## What it does
+
+- Creates a ready-to-print A4 PDF containing a configurable grid of sticker labels
+- Every label shows a QR code and a short text line (e.g. "ASN 00042")
+- The QR code encodes the same text, so scanning it in paperless-ngx assigns the Archive Serial Number automatically
+- Entirely client-side – no data ever leaves the browser
+- Free and open-source (GNU GPL v3)
+
+## Who it is for
+
+Users of **paperless-ngx** who want to label their physical documents with ASN stickers so paperless-ngx can identify them via its built-in ASN feature. Also useful for anyone who needs a configurable QR-code label sheet generator.
+
+## Key features
+
+- Configurable grid layout (rows × columns) to match any label sheet
+- Compatible with popular label sheets: **Avery**, **Herma**, **Hama**, **CS Label**, and any other brand – just enter the correct dimensions
+- Page margins, label size, and spacing fully adjustable in millimetres
+- QR code size and error correction level configurable
+- Custom text template with `{asn}` placeholder
+- Sequential ASN numbering from any start number
+- Instant live preview (first page) auto-updates as you type
+- High-quality compressed PDF download
+- Responsive UI, works on desktop and mobile
+
+## How to use it
+
+1. Open <https://asn-generator.mokosch.it>
+2. Enter your label sheet dimensions (rows, columns, margins, spacing)
+3. Set the starting ASN number and total quantity
+4. Click "Generate PDF" and print
+
+## Paperless-ngx integration
+
+Paperless-ngx has a built-in "Archive Serial Number" (ASN) feature documented at  
+<https://docs.paperless-ngx.com/advanced_usage/#archive-serial-number-assignment>  
+Place a generated sticker on a physical document, then scan it: paperless-ngx reads the QR code and assigns the ASN automatically.
+
+## Technical details
+
+- Built with React + Vite
+- PDF generation via jsPDF (runs 100% in the browser)
+- QR codes rendered via the `qrcode` npm package
+- Source code: <https://github.com/byExos/asn-generator>
+- License: GNU GPL v3
+
+## Canonical URL
+
+<https://asn-generator.mokosch.it>
