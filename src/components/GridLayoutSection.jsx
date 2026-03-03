@@ -50,6 +50,54 @@ export default function GridLayoutSection({ config, onChange }) {
           />
         </label>
       </div>
+      <div className="form-row">
+        <label>
+          Margin left (mm):
+          <input
+            type="number"
+            name="marginLeft"
+            value={config.marginLeft}
+            onChange={onChange}
+            min="0"
+            step="0.5"
+          />
+        </label>
+        <label>
+          Margin right (mm):
+          <input
+            type="number"
+            name="marginRight"
+            value={config.marginRight}
+            onChange={onChange}
+            min="0"
+            step="0.5"
+          />
+        </label>
+      </div>
+      <div className="form-row">
+        <label>
+          Margin top (mm):
+          <input
+            type="number"
+            name="marginTop"
+            value={config.marginTop}
+            onChange={onChange}
+            min="0"
+            step="0.5"
+          />
+        </label>
+        <label>
+          Margin bottom (mm):
+          <input
+            type="number"
+            name="marginBottom"
+            value={config.marginBottom}
+            onChange={onChange}
+            min="0"
+            step="0.5"
+          />
+        </label>
+      </div>
     </section>
   );
 }

@@ -58,7 +58,7 @@ export default function LabelContentSection({ config, onChange, isQtyManual }) {
             name="fontSize"
             value={config.fontSize}
             onChange={onChange}
-            min="6"
+            min="3"
             max="24"
           />
         </label>

@@ -499,17 +499,17 @@ async function buildPdf(config, { preview = false } = {}) {
  */
 export async function generateLabelPDF(config) {
   const filename = config.filename || 'asn_labels.pdf';
-  
+
   // Generate PDF as a Blob
   const blob = await generateLabelPdfBlob(config);
-  
+
   // Create temporary download link
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
   link.click();
-  
+
   // Clean up object URL after download completes
   setTimeout(() => URL.revokeObjectURL(url), URL_REVOKE_TIMEOUT_MS);
 }
