@@ -91,9 +91,11 @@ const renderAsnTemplate = (template, asn) =>
  * @param {number} params.cols - Number of label columns
  * @param {number} params.hSpacing - Horizontal spacing between labels in mm
  * @param {number} params.vSpacing - Vertical spacing between labels in mm
+ * @param {number|null} params.labelWidthMm - Explicit label width in mm (null = auto)
+ * @param {number|null} params.labelHeightMm - Explicit label height in mm (null = auto)
  * @returns {Object} Label dimensions and positions
  */
-const calculateLabelLayout = ({ margins, rows, cols, hSpacing, vSpacing }) => {
+const calculateLabelLayout = ({ margins, rows, cols, hSpacing, vSpacing, labelWidthMm = null, labelHeightMm = null }) => {
   // Convert margins and spacing from mm to pt
   const marginsPt = {
     left: mmToPt(margins.left),
@@ -104,27 +106,48 @@ const calculateLabelLayout = ({ margins, rows, cols, hSpacing, vSpacing }) => {
   const hSpacePt = mmToPt(hSpacing);
   const vSpacePt = mmToPt(vSpacing);
 
-  // Calculate usable area for labels
-  const usableWidth = A4_WIDTH_PT - marginsPt.left - marginsPt.right - (cols - 1) * hSpacePt;
-  const usableHeight = A4_HEIGHT_PT - marginsPt.top - marginsPt.bottom - (rows - 1) * vSpacePt;
+  // Printable area inside margins
+  const printableWidth = A4_WIDTH_PT - marginsPt.left - marginsPt.right;
+  const printableHeight = A4_HEIGHT_PT - marginsPt.top - marginsPt.bottom;
 
-  // Calculate individual label dimensions
-  const labelWidth = usableWidth / cols;
-  const labelHeight = usableHeight / rows;
+  // Use explicit dimensions if provided, otherwise auto-calculate from available space
+  let labelWidth, labelHeight;
+
+  if (labelWidthMm != null && labelWidthMm > 0) {
+    labelWidth = mmToPt(labelWidthMm);
+  } else {
+    labelWidth = (printableWidth - (cols - 1) * hSpacePt) / cols;
+  }
+
+  if (labelHeightMm != null && labelHeightMm > 0) {
+    labelHeight = mmToPt(labelHeightMm);
+  } else {
+    labelHeight = (printableHeight - (rows - 1) * vSpacePt) / rows;
+  }
 
   // Validate that labels have positive dimensions
   if (labelWidth <= 0 || labelHeight <= 0) {
     throw new Error('Invalid grid/margins/spacing produce non-positive label size');
   }
 
+  // Total grid footprint
+  const gridWidth = cols * labelWidth + (cols - 1) * hSpacePt;
+  const gridHeight = rows * labelHeight + (rows - 1) * vSpacePt;
+
+  // Center the grid within the printable area (equal space on both sides)
+  const startX = marginsPt.left + (printableWidth - gridWidth) / 2;
+  const startY = marginsPt.top + (printableHeight - gridHeight) / 2;
+
   return {
     labelWidth,
     labelHeight,
-    margins: marginsPt,
+    startX,
+    startY,
     hSpacing: hSpacePt,
     vSpacing: vSpacePt,
   };
 };
+
 
 /**
  * Calculates the QR code pixel width based on size and DPI.
@@ -386,6 +409,8 @@ async function buildPdf(config, { preview = false } = {}) {
     cols = 3,
     hSpacing = 5,
     vSpacing = 5,
+    labelWidth: labelWidthMm = null,
+    labelHeight: labelHeightMm = null,
     startAsn = 1,
     qty = rows * cols,
     qrSizeMm = 25,
@@ -404,7 +429,7 @@ async function buildPdf(config, { preview = false } = {}) {
   const targetQrDpi = preview ? PREVIEW_QR_DPI : DOWNLOAD_QR_DPI;
 
   // Calculate label layout dimensions
-  const layout = calculateLabelLayout({ margins, rows, cols, hSpacing, vSpacing });
+  const layout = calculateLabelLayout({ margins, rows, cols, hSpacing, vSpacing, labelWidthMm, labelHeightMm });
 
   // Calculate QR code pixel dimensions
   const qrPixelWidth = calculateQrPixelWidth(qrSizeMm, targetQrDpi);
@@ -438,8 +463,8 @@ async function buildPdf(config, { preview = false } = {}) {
         if (labelsGenerated >= effectiveQty) break;
 
         // Calculate label position
-        const x = layout.margins.left + col * (layout.labelWidth + layout.hSpacing);
-        const y = layout.margins.top + row * (layout.labelHeight + layout.vSpacing);
+        const x = layout.startX + col * (layout.labelWidth + layout.hSpacing);
+        const y = layout.startY + row * (layout.labelHeight + layout.vSpacing);
 
         // Render the label
         await renderLabel(pdf, {
@@ -499,17 +524,17 @@ async function buildPdf(config, { preview = false } = {}) {
  */
 export async function generateLabelPDF(config) {
   const filename = config.filename || 'asn_labels.pdf';
-  
+
   // Generate PDF as a Blob
   const blob = await generateLabelPdfBlob(config);
-  
+
   // Create temporary download link
   const url = URL.createObjectURL(blob);
   const link = document.createElement('a');
   link.href = url;
   link.download = filename;
   link.click();
-  
+
   // Clean up object URL after download completes
   setTimeout(() => URL.revokeObjectURL(url), URL_REVOKE_TIMEOUT_MS);
 }

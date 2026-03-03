@@ -50,6 +50,32 @@ export default function GridLayoutSection({ config, onChange }) {
           />
         </label>
       </div>
+      <div className="form-row">
+        <label>
+          Label width (mm):
+          <input
+            type="number"
+            name="labelWidth"
+            value={config.labelWidth ?? ""}
+            onChange={onChange}
+            min="1"
+            step="0.5"
+            placeholder="auto"
+          />
+        </label>
+        <label>
+          Label height (mm):
+          <input
+            type="number"
+            name="labelHeight"
+            value={config.labelHeight ?? ""}
+            onChange={onChange}
+            min="1"
+            step="0.5"
+            placeholder="auto"
+          />
+        </label>
+      </div>
     </section>
   );
 }

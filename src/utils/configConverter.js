@@ -12,6 +12,8 @@ export const toPdfConfig = (currentConfig) => ({
   cols: currentConfig.cols,
   hSpacing: currentConfig.hSpacing,
   vSpacing: currentConfig.vSpacing,
+  labelWidth: currentConfig.labelWidth,
+  labelHeight: currentConfig.labelHeight,
   startAsn: currentConfig.startAsn,
   qty: currentConfig.qty,
   qrSizeMm: currentConfig.qrSizeMm,

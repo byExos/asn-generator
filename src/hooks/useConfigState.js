@@ -9,6 +9,8 @@ const createDefaultConfig = () => ({
   cols: 3,
   hSpacing: 5,
   vSpacing: 5,
+  labelWidth: null,
+  labelHeight: null,
   startAsn: 1,
   qty: 8 * 3,
   qrSizeMm: 25,
@@ -58,6 +60,12 @@ const useConfigState = () => {
 
     if (name === "textPosition") {
       setConfig((prev) => ({ ...prev, textPosition: value }));
+      return;
+    }
+
+    if (name === "labelWidth" || name === "labelHeight") {
+      const parsed = value === "" ? null : Number(value);
+      setConfig((prev) => ({ ...prev, [name]: parsed }));
       return;
     }
 
