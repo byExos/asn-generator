@@ -1,23 +1,23 @@
 import { useState } from "react";
 
 const createDefaultConfig = () => ({
-  marginLeft: 10,
-  marginRight: 10,
-  marginTop: 10,
-  marginBottom: 10,
-  rows: 8,
-  cols: 3,
-  hSpacing: 5,
-  vSpacing: 5,
+  marginLeft: 13.5,
+  marginRight: 13.5,
+  marginTop: 9,
+  marginBottom: 9,
+  rows: 27,
+  cols: 7,
+  hSpacing: 0,
+  vSpacing: 2.5,
   startAsn: 1,
-  qty: 8 * 3,
-  qrSizeMm: 25,
+  qty: 27 * 7,
+  qrSizeMm: 8,
   qrError: "M",
   textTemplate: "ASN{asn}",
-  fontSize: 9,
+  fontSize: 6,
   showGrid: false,
   filename: "asn_labels.pdf",
-  textPosition: "bottom",
+  textPosition: "right",
 });
 
 const useConfigState = () => {
