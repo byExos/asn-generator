@@ -294,7 +294,8 @@ input[type="checkbox"] {
   box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
 }
 
-.position-btn.left, .position-btn.right {
+.position-btn.left,
+.position-btn.right {
   writing-mode: vertical-lr;
   transform: rotate(180deg);
   padding: 0.2rem 0.3rem;
@@ -302,7 +303,12 @@ input[type="checkbox"] {
   max-width: 100px;
 }
 
-.position-btn.left .rotated-text,
+.position-btn.left .rotated-text {
+  transform: rotate(180deg);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
 .position-btn.right .rotated-text {
   transform: none;
   white-space: nowrap;

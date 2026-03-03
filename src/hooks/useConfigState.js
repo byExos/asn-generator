@@ -13,7 +13,7 @@ const createDefaultConfig = () => ({
   qty: 8 * 3,
   qrSizeMm: 25,
   qrError: "M",
-  textTemplate: "ASN: {asn}",
+  textTemplate: "ASN{asn}",
   fontSize: 9,
   showGrid: false,
   filename: "asn_labels.pdf",
