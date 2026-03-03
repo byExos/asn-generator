@@ -83,8 +83,8 @@ function App() {
       <div className="container">
         <div className="form-grid">
           <GridLayoutSection config={config} onChange={handleChange} />
-          <LabelContentSection config={config} onChange={handleChange} isQtyManual={isQtyManual} />
           <QRCodeSettings config={config} onChange={handleChange} />
+          <LabelContentSection config={config} onChange={handleChange} isQtyManual={isQtyManual} />
           <OutputOptions config={config} onChange={handleChange} />
         </div>
 
